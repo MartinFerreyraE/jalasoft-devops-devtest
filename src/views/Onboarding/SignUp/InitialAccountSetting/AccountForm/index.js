@@ -1,12 +1,46 @@
-import React, { useCallback } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import React, { useCallback, useState, useEffect } from "react";
+import Cookies from "js-cookie";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { LockOutlined, UserAddOutlined } from "@ant-design/icons";
 import { FormattedMessage, useIntl } from "react-intl";
+import { signupService } from "../../../../../services";
 
-function AccountForm({ gotoHomePage }) {
+function AccountForm({ theme, gotoHomePage }) {
   const intl = useIntl();
+  const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState("");
 
-  const onFinish = useCallback(async (values) => {}, [gotoHomePage]);
+  useEffect(() => {
+    const email = Cookies.get("SIGN_UP_EMAIL");
+    const userId = Cookies.get("SIGN_UP_USER_ID");
+    debugger;
+    if (email) {
+      setUserEmail(email);
+    }
+    if (userId) {
+      setUserId(userId);
+    }
+  }, []);
+
+  const onFinish = useCallback(
+    async (values) => {
+      try {
+        await signupService.userInitialAccountSettings({
+          ...values,
+          id: parseInt(userId),
+          email: userEmail,
+        });
+        Cookies.set("AUTH_TOKEN", "A123456a");
+        Cookies.remove("SIGN_UP_VIEW");
+        Cookies.remove("SIGN_UP_USER_ID");
+        Cookies.remove("SIGN_UP_EMAIL");
+        gotoHomePage();
+      } catch (error) {
+        message.error(error.message);
+      }
+    },
+    [gotoHomePage, userId, userEmail]
+  );
 
   return (
     <Form
@@ -48,7 +82,7 @@ function AccountForm({ gotoHomePage }) {
       </Form.Item>
       <Form.Item>
         <Form.Item name="sendMeEmails" valuePropName="checked" noStyle>
-          <Checkbox style={{ color: "#989eb5" }}>
+          <Checkbox style={{ color: theme.fontColor }}>
             <FormattedMessage
               id="account-settings.form.check.label"
               values={{ companyName: <b>Jala</b> }}

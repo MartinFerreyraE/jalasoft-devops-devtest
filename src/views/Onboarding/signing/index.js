@@ -8,6 +8,10 @@ import browserLanguage from "../../../helpers/browserLanguage";
 import WithIntlProvider from "../../../hoc/WithIntlProvider";
 import locale from "./locale.json";
 
+const theme = {
+  fontColor: "#989eb5",
+};
+
 function SignIn() {
   const history = useNavigate();
   const intl = useIntl();
@@ -19,11 +23,13 @@ function SignIn() {
       header={{
         title: intl.formatMessage({ id: "authentication.title" }),
       }}
-      form={<LoginForm history={history} homePath="/contacts/all" />}
+      form={
+        <LoginForm history={history} theme={theme} homePath="/contacts/all" />
+      }
       footer={
         <>
           <Divider orientation="center">
-            <span style={{ color: "#989eb5" }}>
+            <span style={{ color: theme.fontColor }}>
               <FormattedMessage id="authentication.footer.divider.label" />
             </span>
           </Divider>
@@ -34,6 +40,7 @@ function SignIn() {
                 linkTitle={intl.formatMessage({
                   id: "authentication.footer.link",
                 })}
+                theme={theme}
                 path="/magiclogin"
               />
             </Col>
@@ -47,6 +54,7 @@ function SignIn() {
                 linkTitle={intl.formatMessage({
                   id: "authentication.footer.link1",
                 })}
+                theme={theme}
                 path="/signup"
               />
             </Col>

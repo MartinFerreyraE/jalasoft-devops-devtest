@@ -14,7 +14,9 @@ function Messages(props) {
         
       <Layout.Sider collapsible collapsed={Collapse.collapsed} onCollapse={(value) => Collapse.setCollapsed(value)}>
         <div className="logo" />
-        <Link to='/' style={{backgroundColor: '#001529'}}><h2 style={{color: 'white', padding: '20px', margin: 'auto'}}>Jalasoft</h2></Link>
+        <Link to='/' style={{backgroundColor: '#001529'}}>
+            <h2 style={{color: 'white', padding: '20px', margin: 'auto'}}>Jalasoft</h2>
+        </Link>
         <Menu
           theme="dark"
           mode="inline"

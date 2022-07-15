@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import locale from "./locale.json";
 import EmailRegistration from "./EmailRegistration";
 import EmailVerification from "./EmailVerification";
@@ -28,7 +29,16 @@ function SignUp() {
     setCurrentView(currentView - 1);
   }, [currentView]);
 
-  const gotoHomePage = useCallback(() => {}, [history]);
+  const gotoHomePage = useCallback(() => {
+    history.push("/contacts/all");
+  }, [history]);
+
+  useEffect(() => {
+    const signupData = Cookies.get("SIGN_UP_VIEW");
+    if (signupData) {
+      next(JSON.parse(signupData));
+    }
+  }, []);
 
   function getForm() {
     const Component = steps[currentView].content;

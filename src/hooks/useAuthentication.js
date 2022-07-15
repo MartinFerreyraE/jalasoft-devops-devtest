@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export function useAuthentication() {
-  return "";
+  return Cookies.get('AUTH_TOKEN');
 }

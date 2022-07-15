@@ -1,12 +1,25 @@
 import React, { useCallback } from "react";
-import { Form, Input, Button, Checkbox } from "antd";
+import Cookies from "js-cookie";
+import { Form, Input, Button, Checkbox, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
+import { singingService } from "../../../../services";
 
-function LoginForm({ history, homePath }) {
+function LoginForm({ history, theme, homePath }) {
   const intl = useIntl();
-  const onFinish = useCallback([history, homePath]);
+  const onFinish = useCallback(
+    async (values) => {
+      try {
+        await singingService.userSigning(values);
+        Cookies.set("AUTH_TOKEN", "A123456a");
+        history.push(homePath);
+      } catch (error) {
+        message.error(error.message);
+      }
+    },
+    [history, homePath]
+  );
 
   return (
     <Form
@@ -53,10 +66,9 @@ function LoginForm({ history, homePath }) {
         />
       </Form.Item>
       <Form.Item name="rememberMe" valuePropName="checked">
-        <Checkbox style={{ color: "#989eb5", width: "100%" }}>
+        <Checkbox style={{ color: theme.fontColor, width: "100%" }}>
           <FormattedMessage id="authentication.form.check.label" />
-
-          <Link style={{ float: "right", marginLeft: '15px' }} to="/forgotpassword">
+          <Link style={{ float: "right" }} to="/forgotpassword">
             <FormattedMessage id="authentication.form.link.forgot-label" />
           </Link>
         </Checkbox>
