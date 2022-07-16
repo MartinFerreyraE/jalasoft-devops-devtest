@@ -1,14 +1,29 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb, Collapse, Input} from "antd";
+import { messageService } from "../../services";
+import { Layout, Menu, Breadcrumb, Collapse, Input, Button} from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 const { TextArea } = Input;
+
+
+
+async function sendMessage(values){
+    
+      try {
+        await messageService.sendMessage(values);
+      } catch (error) {
+        
+      }
+    }
+  
+
 
 function Messages(props) {
   return (
     <Layout
       style={{
         minHeight: '100vh',
+        textAlign: 'center',
       }}
     >
         <Link to='/contacts/all' style={{backgroundColor: '#001529'}}>
@@ -46,11 +61,14 @@ function Messages(props) {
             }}
           >
             Mail to <br />
-            <Input placeholder="default size" style={{padding: '10px', marginBottom: '10px', width:'40%'}} prefix={<UserOutlined />} />
+            <Input placeholder="Insert mail here" style={{padding: '10px', marginBottom: '10px', width:'40%'}} prefix={<UserOutlined />} />
             <br />
             <TextArea style={{width:'40%'}} rows={4} />
             
           </div>
+          <Button onClick={sendMessage} type="primary" htmlType="submit">
+          Send Message
+          </Button>
         </Layout.Content>
         <Layout.Footer
           style={{

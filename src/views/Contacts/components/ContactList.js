@@ -79,10 +79,10 @@ function ContactList() {
       navigate={navigate}
       title="Contacts"
       actions={[
-        <Button onClick={onChat} type="primary">
+        <Button key={"sendmessagebtn"} onClick={onChat} type="primary">
           Send Message
         </Button>,
-        <Button onClick={onAddContact} type="primary">
+        <Button key={"addcontactbtn"} onClick={onAddContact} type="primary">
           Add Contacts
         </Button>,
       ]}

@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/contacts/all" element={<ContactList />} />
         <Route exact path="/contacts/" element={<Contacts />} />
         <Route exact path="/contacts/new" element={<CreateContact />} />
-        <Route exact path="/main" element={<Main />} />
+        <Route exact path="/" element={<Main />} />
         <Route exact path="*" element={<NoMatch />} />
         
          
