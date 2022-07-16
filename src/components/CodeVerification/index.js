@@ -8,6 +8,7 @@ import CodeVerificationContainer, {
 const CODE_LENGTH = new Array(6).fill(0);
 
 export function CodeVerification({ onFinish }) {
+  console.log("*onFinish*", onFinish)
   const input = React.createRef();
   const [value, setValues] = useState("");
   const [focused, setFocused] = useState(false);
@@ -36,7 +37,9 @@ export function CodeVerification({ onFinish }) {
     if (value.length < CODE_LENGTH.length) {
       setValues(`${value}${v}`.slice(0, CODE_LENGTH.length));
       const codeValue = `${value}${v}`;
+      console.log(codeValue, CODE_LENGTH.length, onFinish);
       if (codeValue.length === CODE_LENGTH.length && onFinish) {
+        console.log("finish");
         onFinish(codeValue);
       }
     }

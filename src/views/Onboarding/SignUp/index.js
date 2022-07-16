@@ -15,7 +15,7 @@ const steps = [
 ];
 
 function SignUp() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [currentView, setCurrentView] = useState(0);
 
   const next = useCallback(
@@ -30,8 +30,8 @@ function SignUp() {
   }, [currentView]);
 
   const gotoHomePage = useCallback(() => {
-    history.push("/contacts/all");
-  }, [history]);
+    navigate("/contacts/all");
+  }, [navigate]);
 
   useEffect(() => {
     const signupData = Cookies.get("SIGN_UP_VIEW");

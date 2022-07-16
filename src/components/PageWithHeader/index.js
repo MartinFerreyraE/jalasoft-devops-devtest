@@ -8,9 +8,9 @@ export const PageView = styled.section`
   background-color: #fff;
 `;
 
-export function PageWithHeader({ children, title, actions, history, enabledBackButton }) {
+export function PageWithHeader({ children, title, actions, navigate, enabledBackButton }) {
   function goBack() {
-    history.goBack();
+    navigate(-1);
   }
   return (
     <PageHeader

@@ -3,24 +3,26 @@ import { PageWithHeader } from "../../../components";
 import { Form, Input, Button, message } from "antd";
 import { MailOutlined, UserAddOutlined } from "@ant-design/icons";
 import { contactService } from "../../../services";
+import { useNavigate } from "react-router-dom";
 
-function CreateContact({ history }) {
+function CreateContact() {
+  const navigate = useNavigate();
   const onFinish = useCallback(
     async (values) => {
       try {
         await contactService.addContact(values);
-        history.goBack();
+        navigate(-1);
       } catch (error) {
         message.error(error.message);
       }
     },
-    [history]
+    [navigate]
   );
 
   return (
     <PageWithHeader
       title="Create a contact"
-      history={history}
+      navigate={navigate}
       enabledBackButton
     >
       <section style={{ width: "500px", padding: "40px" }}>

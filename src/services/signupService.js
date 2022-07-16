@@ -10,6 +10,7 @@ export const signupService = {
     return api.get(`/${code}`);
   },
   userInitialAccountSettings: (data) => {
+    console.log("data", data);
     const api = AxiosFactory("users");
     return api.put("/", data);
   },

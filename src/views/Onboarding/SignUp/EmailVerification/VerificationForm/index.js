@@ -8,6 +8,7 @@ import { signupService } from "../../../../../services";
 function VerificationForm({ theme, nextAction }) {
   const handleChange = useCallback(
     async (codeValue) => {
+      console.log(codeValue);
       try {
         const { data } = await signupService.verificationCode(codeValue);
         Cookies.set("SIGN_UP_USER_ID", `${data.id}`);
@@ -22,7 +23,7 @@ function VerificationForm({ theme, nextAction }) {
 
   return (
     <React.Fragment>
-      <CodeVerification handleChangeField={handleChange} />
+      <CodeVerification onFinish={handleChange} />
       <span style={{ color: theme.fontColor }}>
         <FormattedMessage id="verification.form.message" />
       </span>

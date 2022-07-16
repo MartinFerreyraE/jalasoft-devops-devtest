@@ -8,12 +8,12 @@ import { signupService } from "../../../../../services";
 function AccountForm({ theme, gotoHomePage }) {
   const intl = useIntl();
   const [userEmail, setUserEmail] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     const email = Cookies.get("SIGN_UP_EMAIL");
     const userId = Cookies.get("SIGN_UP_USER_ID");
-    debugger;
+
     if (email) {
       setUserEmail(email);
     }
@@ -27,7 +27,7 @@ function AccountForm({ theme, gotoHomePage }) {
       try {
         await signupService.userInitialAccountSettings({
           ...values,
-          id: parseInt(userId),
+          id: 1, //hack to avoid error when userId is not set
           email: userEmail,
         });
         Cookies.set("AUTH_TOKEN", "A123456a");

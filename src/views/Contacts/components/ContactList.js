@@ -7,6 +7,10 @@ import {
 } from "@ant-design/icons";
 import { EmptyContainer, PageWithHeader } from "../../../components";
 import { contactService } from "../../../services";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Layout } from "antd";
+const { Sider } = Layout;
 
 const columns = [
   {
@@ -26,8 +30,8 @@ const columns = [
     width: "20%",
   },
 ];
-function ContactList({ history }) {
-  console.log("testeando");
+function ContactList() {
+  const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [pagination, setPagination] = useState({
     current: 20,
@@ -36,7 +40,11 @@ function ContactList({ history }) {
 
   async function fetchContacts() {
     const recoveredContacts = await contactService.getContacts();
-    setContacts(recoveredContacts.data);
+    setContacts(recoveredContacts.data.sort(function(x, y){
+      let a = x.name.toUpperCase(),
+      b = y.name.toUpperCase();
+      return a == b ? 0 : a > b ? 1 : -1;
+    }));
   }
 
   useEffect(() => {
@@ -45,22 +53,40 @@ function ContactList({ history }) {
 
   function handleTableChange(pagination, filters) {}
   function onTabChange(key) {}
-  function onSearch(value) {}
+  async function onSearch(value) {
+    debugger;
+    if(value){
+      const recoveredContacts = await contactService.searchContact(value);
+      setContacts(recoveredContacts.data);
+    }
+    else
+    {
+      fetchContacts();
+    }
+  }
   function onSelectChange(value) {}
 
   function onAddContact() {
-    history.push("/contacts/new");
+    navigate("/contacts/new");
+  }
+  function onChat() {
+    navigate("/messages");
   }
   return contacts.length ? (
+
+    <Layout>
     <PageWithHeader
-      history={history}
+      navigate={navigate}
       title="Contacts"
       actions={[
+        <Button onClick={onChat} type="primary">
+          Send Message
+        </Button>,
         <Button onClick={onAddContact} type="primary">
           Add Contacts
         </Button>,
       ]}
-    >
+    > 
       <Tabs
         defaultActiveKey="1"
         onChange={onTabChange}
@@ -115,7 +141,7 @@ function ContactList({ history }) {
           />
         </Tabs.TabPane>
       </Tabs>
-    </PageWithHeader>
+    </PageWithHeader></Layout>
   ) : (
     <EmptyContainer description={<span>Add and manage your contacts</span>}>
       <div style={{ display: "flex", flexDirection: "column" }}>

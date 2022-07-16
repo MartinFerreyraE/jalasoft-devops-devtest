@@ -1,13 +1,14 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import AppLayout, { RouteWithSubRoutes } from "./components";
 import { ContactsOutlined } from "@ant-design/icons";
 import { routess } from "./routes";
 
-function Main({ history }) {
+function Main() {
+  const navigate = useNavigate();
   return (
     <AppLayout
-      history={history}
+      navigate={navigate}
       defaultSelected="contacts"
       appOptions={[
         {

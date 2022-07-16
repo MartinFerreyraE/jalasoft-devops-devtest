@@ -9,4 +9,9 @@ export const contactService = {
     const api = AxiosFactory("contacts");
     return api.post("/", data);
   },
+  searchContact: (searchString) => {
+    debugger;
+    const api = AxiosFactory("contacts");
+    return api.get("/search/"+searchString);
+  }
 };

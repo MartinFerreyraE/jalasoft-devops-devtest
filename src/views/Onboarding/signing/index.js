@@ -13,7 +13,7 @@ const theme = {
 };
 
 function SignIn() {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const intl = useIntl();
   const [sendingRequest, setSendingRequest] = useState(false);
   return (
@@ -24,7 +24,7 @@ function SignIn() {
         title: intl.formatMessage({ id: "authentication.title" }),
       }}
       form={
-        <LoginForm history={history} theme={theme} homePath="/contacts/all" />
+        <LoginForm navigate={navigate} theme={theme} homePath="/contacts/all" />
       }
       footer={
         <>

@@ -6,19 +6,19 @@ import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { singingService } from "../../../../services";
 
-function LoginForm({ history, theme, homePath }) {
+function LoginForm({ navigate, theme, homePath }) {
   const intl = useIntl();
   const onFinish = useCallback(
     async (values) => {
       try {
         await singingService.userSigning(values);
         Cookies.set("AUTH_TOKEN", "A123456a");
-        history.push(homePath);
+        navigate(homePath);
       } catch (error) {
         message.error(error.message);
       }
     },
-    [history, homePath]
+    [navigate, homePath]
   );
 
   return (

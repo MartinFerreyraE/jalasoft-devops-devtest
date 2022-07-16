@@ -8,6 +8,9 @@ import Messages from "./views/Messages/index";
 import ForgotPassword from "./views/Onboarding/ForgotPassword";
 import SignInWithoutPassword from "./views/Onboarding/SignInWithoutPassword";
 import NoMatch from "./views/NoMatch";
+import ContactList from "./views/Contacts/components/ContactList";
+import Contacts from "./views/Contacts";
+import CreateContact from "./views/Contacts/components/CreateContact";
 
 
 function App() {
@@ -22,8 +25,12 @@ function App() {
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
         <Route exact path="/magiclogin" element={<SignInWithoutPassword />} />
-        <Route exact path="/" element={<Main />} />
+        <Route exact path="/contacts/all" element={<ContactList />} />
+        <Route exact path="/contacts/" element={<Contacts />} />
+        <Route exact path="/contacts/new" element={<CreateContact />} />
+        <Route exact path="/main" element={<Main />} />
         <Route exact path="*" element={<NoMatch />} />
+        
          
       </Routes>
       </BrowserRouter>

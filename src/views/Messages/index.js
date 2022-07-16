@@ -1,8 +1,8 @@
 import React from "react";
-import { Layout, Menu, Breadcrumb, Collapse} from "antd";
+import { Layout, Menu, Breadcrumb, Collapse, Input} from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
-
+const { TextArea } = Input;
 
 function Messages(props) {
   return (
@@ -11,35 +11,9 @@ function Messages(props) {
         minHeight: '100vh',
       }}
     >
-        
-      <Layout.Sider collapsible collapsed={Collapse.collapsed} onCollapse={(value) => Collapse.setCollapsed(value)}>
-        <div className="logo" />
-        <Link to='/' style={{backgroundColor: '#001529'}}>
-            <h2 style={{color: 'white', padding: '20px', margin: 'auto'}}>Jalasoft</h2>
+        <Link to='/contacts/all' style={{backgroundColor: '#001529'}}>
+            <h2 style={{color: 'white', padding: '5px', margin: 'auto', position: 'absolute'}}>Return to Contacts</h2>
         </Link>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'User 1',
-            },
-            {
-              key: '2',
-              icon: <UserOutlined />,
-              label: 'User 2',
-            },
-            {
-              key: '3',
-              icon: <UserOutlined />,
-              label: 'User 3',
-            },
-          ]}
-        />
-      </Layout.Sider>
       <Layout className="site-layout">
         <Layout.Header
           className="site-layout-background"
@@ -60,6 +34,7 @@ function Messages(props) {
         <Layout.Content
           style={{
             margin: '0 16px',
+            alignItems: 'center',
           }}
         >
           
@@ -70,7 +45,11 @@ function Messages(props) {
               minHeight: 360,
             }}
           >
-            Hello Martín.
+            Mail to <br />
+            <Input placeholder="default size" style={{padding: '10px', marginBottom: '10px', width:'40%'}} prefix={<UserOutlined />} />
+            <br />
+            <TextArea style={{width:'40%'}} rows={4} />
+            
           </div>
         </Layout.Content>
         <Layout.Footer
