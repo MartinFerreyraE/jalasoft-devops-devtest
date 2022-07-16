@@ -4,6 +4,10 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { OnboardPage } from "../../../../components";
 import ValidationForm from "./VerificationForm";
 
+const theme = {
+  fontColor: "#989eb5",
+};
+
 function EmailVerification({ userRegistered, nextAction, locale }) {
   const intl = useIntl();
   const [verifying, setVerifying] = useState(false);
@@ -32,12 +36,13 @@ function EmailVerification({ userRegistered, nextAction, locale }) {
         <ValidationForm
           setVerifying={setVerifying}
           userEmail={userRegistered}
+          theme={theme}
           nextAction={nextAction}
         />
       }
       footer={
         <div>
-          <span style={{ color: "#989eb5" }}>
+          <span style={{ color: theme.fontColor }}>
             <FormattedMessage id="verification.footer.text" />
           </span>
           <Button

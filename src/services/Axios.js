@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const API_REST_URL = "http://localhost:8080/";
+const API_REST_URL = "https://localhost:5001/";
 
 export default function AxiosFactory(path = "", apiVersion = "") {
   const axiosInstance = axios.create({
